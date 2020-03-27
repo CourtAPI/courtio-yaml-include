@@ -1,12 +1,14 @@
 package CourtIO::YAML::PP::Schema::Include;
-$CourtIO::YAML::PP::Schema::Include::VERSION = '0.01';
+$CourtIO::YAML::PP::Schema::Include::VERSION = '0.02';
 # ABSTRACT: YAML Include Schema For CourtIO::YAML::PP
 
 use Moo;
 use strictures 2;
 use namespace::clean;
+
 use File::Slurp 'read_file';
 use File::Basename 'dirname';
+use Log::Log4perl ':easy';
 
 has paths => (
   is      => 'ro',
@@ -52,22 +54,18 @@ sub include {
   if ($self->last_includes->@*) {
     my $last_path = $self->last_includes->[-1];
 
-    warn "Adding last path: $last_path\n";
-
     push @search_paths, $last_path;
   }
   else {
     # we are in the top-level file and need to look into the original YAML::PP instance
     my $dirname = dirname( $yaml_pp->loader->filename );
 
-    warn "Adding top level dir: $dirname\n";
-
     push @search_paths, $dirname;
   }
 
   my $filename = $event->{value};
-  warn "event filename: $filename";
-
+  DEBUG 'Current file: ', $filename;
+  TRACE Data::Dumper::Dumper($event);
 
   my @paths = File::Spec->splitdir($filename);
 
@@ -75,7 +73,7 @@ sub include {
 
   for my $candidate (@search_paths) {
     my $test = File::Spec->catfile( $candidate, @paths );
-    warn "Considering $test\n";
+    TRACE 'Candidate filename: ', $test;
 
     if (-e $test) {
       $fullpath = $test;
@@ -84,6 +82,8 @@ sub include {
   }
 
   Carp::croak "File '$filename' not found" unless defined $fullpath;
+
+  DEBUG 'Found file at: ', $fullpath;
 
   if ($self->cached->{ $fullpath }++) {
     Carp::croak "Circular include '$fullpath'";
@@ -109,8 +109,6 @@ sub include {
 sub default_loader {
   my ( $yaml_pp, $filename ) = @_;
 
-  warn "Loader: @_\n";
-
   if ( $filename =~ /\.xml$/ ) {
     # return XML files as strings
     return scalar read_file( $filename );
@@ -135,7 +133,7 @@ CourtIO::YAML::PP::Schema::Include - YAML Include Schema For CourtIO::YAML::PP
 
 =head1 VERSION
 
-version 0.01
+version 0.02
 
 =head1 AUTHOR
 
