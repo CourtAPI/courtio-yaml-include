@@ -5,8 +5,10 @@ package CourtIO::YAML::PP::Schema::Include;
 use Moo;
 use strictures 2;
 use namespace::clean;
+
 use File::Slurp 'read_file';
 use File::Basename 'dirname';
+use Log::Log4perl ':easy';
 
 has paths => (
   is      => 'ro',
@@ -62,6 +64,8 @@ sub include {
   }
 
   my $filename = $event->{value};
+  DEBUG 'Current file: ', $filename;
+  TRACE Data::Dumper::Dumper($event);
 
   my @paths = File::Spec->splitdir($filename);
 
@@ -69,7 +73,7 @@ sub include {
 
   for my $candidate (@search_paths) {
     my $test = File::Spec->catfile( $candidate, @paths );
-    warn "Considering $test\n";
+    TRACE 'Candidate filename: ', $test;
 
     if (-e $test) {
       $fullpath = $test;
@@ -78,6 +82,8 @@ sub include {
   }
 
   Carp::croak "File '$filename' not found" unless defined $fullpath;
+
+  DEBUG 'Found file at: ', $fullpath;
 
   if ($self->cached->{ $fullpath }++) {
     Carp::croak "Circular include '$fullpath'";

@@ -10,6 +10,7 @@ use MooX::Options;
 use CourtIO::YAML::PP;
 use File::Spec;
 use Fatal 'open';
+use Log::Log4perl ':easy';
 
 option file => (
   is       => 'ro',
@@ -35,8 +36,16 @@ option output => (
   doc     => 'outfile, default is to print to stdout'
 );
 
+option trace => (
+  is      => 'ro',
+  default => sub { 0 },
+  doc     => 'Enable trace logging'
+);
+
 sub execute {
   my $self = shift;
+
+  $self->_init_logger;
 
   # Make include dirs absolute
   my @include_dirs = map { File::Spec->rel2abs($_) } $self->include->@*;
@@ -54,6 +63,27 @@ sub execute {
     open my $outfh, '>', $self->output;
     print $outfh $yaml_string;
     close $outfh;
+  }
+}
+
+sub _init_logger {
+  my $self = shift;
+
+  Log::Log4perl::init_once(\<<~'END');
+    log4perl.logger = INFO, Screen
+
+    # Setup screen appender that colours levels
+    log4perl.appender.Screen          = Log::Log4perl::Appender::ScreenColoredLevels
+    log4perl.appender.Screen.utf8     = 1
+    log4perl.appender.Screen.layout   = PatternLayout
+
+    # [PID] file-line: LEVEL message
+    log4perl.appender.Screen.layout.ConversionPattern = %d [%P] %F{2}-%L: %p %m%n
+  END
+
+  if ($self->trace) {
+    INFO 'TRACE logging enabled';
+    Log::Log4perl::get_logger('')->more_logging(5);
   }
 }
 
