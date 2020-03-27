@@ -1,0 +1,11 @@
+#!/usr/bin/env perl
+#
+# PODNAME: yaml-include
+#
+
+use strict;
+use warnings;
+
+use CourtIO::App::YAML::Include;
+
+CourtIO::App::YAML::Include->new_with_cmd;
