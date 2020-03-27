@@ -10,6 +10,7 @@ use MooX::Options;
 use CourtIO::YAML::PP;
 use File::Spec;
 use Fatal 'open';
+use JSON::XS;
 use Log::Log4perl ':easy';
 
 option file => (
@@ -36,6 +37,12 @@ option output => (
   doc     => 'outfile, default is to print to stdout'
 );
 
+option json => (
+  is      => 'ro',
+  default => sub { 0 },
+  doc     => 'Output JSON instead of YAML'
+);
+
 option trace => (
   is      => 'ro',
   default => sub { 0 },
@@ -54,14 +61,19 @@ sub execute {
 
   my $data = $yaml_pp->load_file($self->file);
 
-  my $yaml_string = $yaml_pp->dump_string($data);
+  my $output_string = $self->json
+    ? JSON::XS->new->utf8->canonical->pretty->encode($data)
+    : $yaml_pp->dump_string($data);
 
   if ($self->output eq '-') {
-    print $yaml_string;
+    print $output_string;
   }
   else {
+    # TODO Encoding?
     open my $outfh, '>', $self->output;
-    print $outfh $yaml_string;
+
+    print $outfh $output_string;
+
     close $outfh;
   }
 }
