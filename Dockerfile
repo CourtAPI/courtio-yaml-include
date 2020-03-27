@@ -10,7 +10,10 @@ RUN carton install \
   && rm -rf $HOME/.cpanm local/cache cpanfile.snapshot
 
 ADD lib /app/lib
+RUN chmod -R a+rX /app/lib
+
 ADD bin /app/bin
+RUN chmod -R a+rX /app/bin
 
 ENV PERL5LIB /app/local/lib/perl5:/app/lib
 
