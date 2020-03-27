@@ -52,22 +52,16 @@ sub include {
   if ($self->last_includes->@*) {
     my $last_path = $self->last_includes->[-1];
 
-    warn "Adding last path: $last_path\n";
-
     push @search_paths, $last_path;
   }
   else {
     # we are in the top-level file and need to look into the original YAML::PP instance
     my $dirname = dirname( $yaml_pp->loader->filename );
 
-    warn "Adding top level dir: $dirname\n";
-
     push @search_paths, $dirname;
   }
 
   my $filename = $event->{value};
-  warn "event filename: $filename";
-
 
   my @paths = File::Spec->splitdir($filename);
 
@@ -108,8 +102,6 @@ sub include {
 
 sub default_loader {
   my ( $yaml_pp, $filename ) = @_;
-
-  warn "Loader: @_\n";
 
   if ( $filename =~ /\.xml$/ ) {
     # return XML files as strings
