@@ -7,9 +7,11 @@ WORKDIR /app
 
 COPY cpanfile .
 RUN carton install \
-  && rm -rf $HOME/.cpanm
+  && rm -rf $HOME/.cpanm local/cache cpanfile.snapshot
 
-COPY lib .
-COPY bin .
+ADD lib /app/lib
+ADD bin /app/bin
 
-CMD /app/bin/yaml-include
+ENV PERL5LIB /app/local/lib/perl5:/app/lib
+
+ENTRYPOINT ["/app/bin/yaml-include"]
