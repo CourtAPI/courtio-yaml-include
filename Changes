@@ -1,6 +1,8 @@
 Revision history for CourtIO-YAML-PP
 
 {{$NEXT}}
+  - Add Log4perl support and --trace flag
+  - Add --json flag to produce JSON output instead of YAML
 
 "0.01  2020-03-27"
-    -
+  - Initial release
