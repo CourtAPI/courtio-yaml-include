@@ -1,5 +1,5 @@
 package CourtIO::YAML::PP;
-$CourtIO::YAML::PP::VERSION = '0.02';
+$CourtIO::YAML::PP::VERSION = '0.03';
 # ABSTRACT: YAML::PP with CourtIO::YAML::PP::Schema::Include
 
 use strict;
@@ -7,6 +7,7 @@ use warnings;
 
 use parent 'YAML::PP';
 
+use YAML::PP::Common;
 use CourtIO::YAML::PP::Schema::Include;
 
 # extend new() to auto register CourtIO::YAML::PP::Schema::Include
@@ -16,8 +17,9 @@ sub new {
   my $include = CourtIO::YAML::PP::Schema::Include->new(%args);
 
   my $self = $class->SUPER::new(
-    schema  => ['JSON', $include],
-    boolean => 'JSON::PP'
+    schema   => ['JSON', $include],
+    boolean  => 'JSON::PP',
+    preserve => YAML::PP::Common->PRESERVE_ORDER
   );
 
   $include->yaml_pp($self);
@@ -39,7 +41,7 @@ CourtIO::YAML::PP - YAML::PP with CourtIO::YAML::PP::Schema::Include
 
 =head1 VERSION
 
-version 0.02
+version 0.03
 
 =head1 AUTHOR
 

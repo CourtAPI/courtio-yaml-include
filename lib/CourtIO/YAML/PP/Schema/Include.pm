@@ -1,5 +1,5 @@
 package CourtIO::YAML::PP::Schema::Include;
-$CourtIO::YAML::PP::Schema::Include::VERSION = '0.02';
+$CourtIO::YAML::PP::Schema::Include::VERSION = '0.03';
 # ABSTRACT: YAML Include Schema For CourtIO::YAML::PP
 
 use Moo;
@@ -133,7 +133,7 @@ CourtIO::YAML::PP::Schema::Include - YAML Include Schema For CourtIO::YAML::PP
 
 =head1 VERSION
 
-version 0.02
+version 0.03
 
 =head1 AUTHOR
 
