@@ -7,6 +7,7 @@ use warnings;
 
 use parent 'YAML::PP';
 
+use YAML::PP::Common;
 use CourtIO::YAML::PP::Schema::Include;
 
 # extend new() to auto register CourtIO::YAML::PP::Schema::Include
@@ -16,8 +17,9 @@ sub new {
   my $include = CourtIO::YAML::PP::Schema::Include->new(%args);
 
   my $self = $class->SUPER::new(
-    schema  => ['JSON', $include],
-    boolean => 'JSON::PP'
+    schema   => ['JSON', $include],
+    boolean  => 'JSON::PP',
+    preserve => YAML::PP::Common->PRESERVE_ORDER
   );
 
   $include->yaml_pp($self);

@@ -1,6 +1,7 @@
 Revision history for CourtIO-YAML-PP
 
 {{$NEXT}}
+  - Preserve YAML order
 
 "0.02  2020-03-27"
   - Add Log4perl support and --trace flag
