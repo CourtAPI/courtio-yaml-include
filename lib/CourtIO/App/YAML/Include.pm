@@ -25,8 +25,9 @@ option include => (
   is         => 'ro',
   format     => 's@',
   repeatable => 1,
+  default    => sub { [] },
   short      => 'I',
-  doc        => 'Include directories'
+  doc        => 'Include directories',
 );
 
 option output => (
