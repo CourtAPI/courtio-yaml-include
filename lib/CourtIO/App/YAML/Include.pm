@@ -1,6 +1,6 @@
 package CourtIO::App::YAML::Include;
 # ABSTRACT: YAML Include processor
-$CourtIO::App::YAML::Include::VERSION = '0.03';
+$CourtIO::App::YAML::Include::VERSION = '0.04';
 use strict;
 use warnings;
 
@@ -25,8 +25,9 @@ option include => (
   is         => 'ro',
   format     => 's@',
   repeatable => 1,
+  default    => sub { [] },
   short      => 'I',
-  doc        => 'Include directories'
+  doc        => 'Include directories',
 );
 
 option output => (
@@ -113,7 +114,7 @@ CourtIO::App::YAML::Include - YAML Include processor
 
 =head1 VERSION
 
-version 0.03
+version 0.04
 
 =head1 AUTHOR
 
