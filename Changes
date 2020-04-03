@@ -1,5 +1,7 @@
 Revision history for CourtIO-YAML-PP
 
+"0.05  2020-04-03"
+
 "0.04  2020-04-02"
   - Fix exception when no include directories were given
 
