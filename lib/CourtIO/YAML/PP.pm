@@ -19,7 +19,6 @@ sub new {
   my $self = $class->SUPER::new(
     schema   => ['JSON', $include],
     boolean  => 'JSON::PP',
-    preserve => YAML::PP::Common->PRESERVE_ORDER
   );
 
   $include->yaml_pp($self);
