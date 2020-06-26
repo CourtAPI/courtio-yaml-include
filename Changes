@@ -1,6 +1,8 @@
 Revision history for CourtIO-YAML-PP
 
 {{$NEXT}}
+  - Do not try to use the top level YAML filename if what we loaded wasn't a file
+    - This fixes exceptions when loading and processing string fragments
 
 "0.05  2020-04-03"
 

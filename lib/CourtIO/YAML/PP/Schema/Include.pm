@@ -56,8 +56,9 @@ sub include {
 
     push @search_paths, $last_path;
   }
-  else {
-    # we are in the top-level file and need to look into the original YAML::PP instance
+  elsif ($yaml_pp->loader->parser->reader->isa('YAML::PP::Reader::File')) {
+    # we are in the top-level, and this is a file reader, so look into the
+    # original YAML::PP instance to figure out the file that we loaded
     my $dirname = dirname( $yaml_pp->loader->filename );
 
     push @search_paths, $dirname;
