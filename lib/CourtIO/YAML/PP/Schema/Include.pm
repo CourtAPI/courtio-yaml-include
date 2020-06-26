@@ -1,5 +1,5 @@
 package CourtIO::YAML::PP::Schema::Include;
-$CourtIO::YAML::PP::Schema::Include::VERSION = '0.05';
+$CourtIO::YAML::PP::Schema::Include::VERSION = '0.06';
 # ABSTRACT: YAML Include Schema For CourtIO::YAML::PP
 
 use Moo;
@@ -56,8 +56,9 @@ sub include {
 
     push @search_paths, $last_path;
   }
-  else {
-    # we are in the top-level file and need to look into the original YAML::PP instance
+  elsif ($yaml_pp->loader->parser->reader->isa('YAML::PP::Reader::File')) {
+    # we are in the top-level, and this is a file reader, so look into the
+    # original YAML::PP instance to figure out the file that we loaded
     my $dirname = dirname( $yaml_pp->loader->filename );
 
     push @search_paths, $dirname;
@@ -133,7 +134,7 @@ CourtIO::YAML::PP::Schema::Include - YAML Include Schema For CourtIO::YAML::PP
 
 =head1 VERSION
 
-version 0.05
+version 0.06
 
 =head1 AUTHOR
 
