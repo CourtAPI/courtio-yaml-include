@@ -1,6 +1,8 @@
 Revision history for CourtIO-YAML-PP
 
 {{$NEXT}}
+
+"0.07  2020-06-26"
   - Drop default preserve order to match how we actually use it
 
 "0.06  2020-06-26"
