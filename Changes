@@ -1,5 +1,8 @@
 Revision history for CourtIO-YAML-PP
 
+"0.07  2020-06-26"
+  - Drop default preserve order to match how we actually use it
+
 "0.06  2020-06-26"
   - Do not try to use the top level YAML filename if what we loaded wasn't a file
     - This fixes exceptions when loading and processing string fragments
