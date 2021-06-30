@@ -1,6 +1,8 @@
 Revision history for CourtIO-YAML-PP
 
 {{$NEXT}}
+
+"0.08  2021-06-30"
   - Smaller final docker image
 
 "0.07  2020-06-26"
