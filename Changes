@@ -3,6 +3,8 @@ Revision history for CourtIO-YAML-PP
 {{$NEXT}}
 
 "0.09  2023-05-03"
+  - Treat .txt and .md files as strings as well
+  - Update base docker image to 5.36.1
 
 "0.08  2021-06-30"
   - Smaller final docker image
