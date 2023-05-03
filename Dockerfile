@@ -1,4 +1,6 @@
-FROM perl:5.30 AS carton-deps
+FROM perl:5.36.1-slim-bullseye AS carton-deps
+
+RUN apt-get update && apt-get install build-essential -y
 
 RUN cpanm install --notest Carton \
   && rm -rf $HOME/.cpanm
@@ -9,7 +11,7 @@ COPY cpanfile .
 RUN carton install \
   && rm -rf $HOME/.cpanm local/cache cpanfile.snapshot
 
-FROM perl:5.30
+FROM perl:5.36.1-slim-bullseye
 
 WORKDIR /app
 

@@ -1,6 +1,6 @@
 package CourtIO::App::YAML::Include;
 # ABSTRACT: YAML Include processor
-$CourtIO::App::YAML::Include::VERSION = '0.08';
+$CourtIO::App::YAML::Include::VERSION = '0.09';
 use strict;
 use warnings;
 
@@ -92,7 +92,7 @@ sub _init_logger {
 
     # [PID] file-line: LEVEL message
     log4perl.appender.Screen.layout.ConversionPattern = %d [%P] %F{2}-%L: %p %m%n
-END
+  END
 
   if ($self->trace) {
     INFO 'TRACE logging enabled';
@@ -114,7 +114,7 @@ CourtIO::App::YAML::Include - YAML Include processor
 
 =head1 VERSION
 
-version 0.08
+version 0.09
 
 =head1 AUTHOR
 

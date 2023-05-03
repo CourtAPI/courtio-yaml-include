@@ -1,5 +1,5 @@
 package CourtIO::YAML::PP::Schema::Include;
-$CourtIO::YAML::PP::Schema::Include::VERSION = '0.08';
+$CourtIO::YAML::PP::Schema::Include::VERSION = '0.09';
 # ABSTRACT: YAML Include Schema For CourtIO::YAML::PP
 
 use Moo;
@@ -110,8 +110,8 @@ sub include {
 sub default_loader {
   my ( $yaml_pp, $filename ) = @_;
 
-  if ( $filename =~ /\.xml$/ ) {
-    # return XML files as strings
+  if ( $filename =~ /\.(?:xml|md|txt)$/ ) {
+    # These files are not YAML so just read them as strings
     return scalar read_file( $filename );
   }
   else {
@@ -134,7 +134,7 @@ CourtIO::YAML::PP::Schema::Include - YAML Include Schema For CourtIO::YAML::PP
 
 =head1 VERSION
 
-version 0.08
+version 0.09
 
 =head1 AUTHOR
 

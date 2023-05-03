@@ -1,5 +1,5 @@
 package CourtIO::YAML::PP;
-$CourtIO::YAML::PP::VERSION = '0.08';
+$CourtIO::YAML::PP::VERSION = '0.09';
 # ABSTRACT: YAML::PP with CourtIO::YAML::PP::Schema::Include
 
 use strict;
@@ -40,7 +40,7 @@ CourtIO::YAML::PP - YAML::PP with CourtIO::YAML::PP::Schema::Include
 
 =head1 VERSION
 
-version 0.08
+version 0.09
 
 =head1 AUTHOR
 
