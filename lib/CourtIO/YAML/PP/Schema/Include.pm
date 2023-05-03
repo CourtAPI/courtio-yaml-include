@@ -110,8 +110,8 @@ sub include {
 sub default_loader {
   my ( $yaml_pp, $filename ) = @_;
 
-  if ( $filename =~ /\.xml$/ ) {
-    # return XML files as strings
+  if ( $filename =~ /\.(?:xml|md|txt)$/ ) {
+    # These files are not YAML so just read them as strings
     return scalar read_file( $filename );
   }
   else {
